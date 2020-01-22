@@ -44,7 +44,7 @@ function App() {
     if (!isNaN(Number(value))) {
       setLoading({...loading, search: true});
       axios
-      .get("http://localhost:8080/card-scheme/verify/" + value)
+      .get("/card-scheme/verify/" + value)
       .then(response => {
         const { search } = errors;
         search.status = false;
@@ -76,7 +76,7 @@ function App() {
   const getNumberOfHits = () => {
     setLoading({...loading, hits: true});
     axios
-      .get('http://localhost:8080/card-scheme/stats', {
+      .get('/card-scheme/stats', {
         params: {
           start: stats.start,
           limit: stats.limit
@@ -95,7 +95,7 @@ function App() {
             number: item[0],
             hits: item[1]
           }
-        })
+        }).sort((a, b) => b.hits - a.hits);
         setStats({start, limit, size, payload});
         setLoading({...loading, hits: false});
         setResultReadyStatus({...resultReadyStatus, hits: true});
