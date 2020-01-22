@@ -40,11 +40,11 @@ function App() {
 
 
   const handleSearch = (value, event) => {
-    console.log(errors);
-    if (!isNaN(Number(value))) {
+    const cardNumber = value.trim().replace(" ", "");
+    if (!isNaN(Number(cardNumber))) {
       setLoading({...loading, search: true});
       axios
-      .get("/card-scheme/verify/" + value)
+      .get("/card-scheme/verify/" + cardNumber)
       .then(response => {
         const { search } = errors;
         search.status = false;
@@ -126,7 +126,7 @@ function App() {
   ];
 
   let searchOutput = "";
-  if (resultReadyStatus.search) {
+  if (resultReadyStatus.search && !loading.search) {
     const { search } = errors;
     if (search.status) {
       searchOutput = (<p className="error">{search.message}</p>);
@@ -147,7 +147,7 @@ function App() {
   }
 
   let hitsOutput = "";
-  if (resultReadyStatus.hits) {
+  if (resultReadyStatus.hits && !loading.hits) {
     const { hits } = errors;
     console.log(hits);
     if (hits.status) {

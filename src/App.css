@@ -88,5 +88,5 @@ div .controls input {
 
 .error {
   color: red;
-  /* text-align: left; */
+  margin-top: 20px;
 }
